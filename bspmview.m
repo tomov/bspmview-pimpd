@@ -2434,6 +2434,7 @@ function [cmap, cmapname]        = getcolormap
     hrev = findobj(st.fig, 'tag', 'reversemap');
     revflag = strcmpi(get(hrev, 'Checked'), 'on');
     if revflag, cmap = cmap(end:-1:1,:); end
+
 function mnmx                    = getminmax % MOMCHIL HACK this is where you tweak things to get e.g. negative activations only in blue
 global st
 if isfield(st.vols{1}, 'blobs')
@@ -2441,6 +2442,7 @@ if isfield(st.vols{1}, 'blobs')
 else
     mnmx = [min(st.ol.Z) max(st.ol.Z)];
 end
+mnmx(2) = max(mnmx(2), 0.1); % MOMCHIL the hack
 
 function [clustsize, clustidx]   = getclustidx(rawol, u, k)
 
